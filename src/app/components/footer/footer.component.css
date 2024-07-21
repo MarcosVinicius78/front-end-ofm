@@ -1,0 +1,78 @@
+footer{
+  /* position: fixed; */
+  /* bottom: 0; */
+  width: 100%;
+  background-color:#F0A11F;
+  /* display: flex; */
+  justify-content: center;
+  /* height: 100px; */
+  align-items: center;
+  /* justify-content: space-around; */
+}
+
+.footer-fixo {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer-normal {
+  position: relative;
+  /* Estilos adicionais conforme necessário */
+}
+
+
+footer div:last-child{
+  display: flex;
+  justify-content: center;
+}
+
+.flex{
+  height: 50px;
+  display: none;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.siga ul{
+  justify-content: space-around;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.siga li{
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.suporte ul{
+  width: 100%;
+  justify-content: space-around;
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.suporte li{
+  margin-left: 5px;
+}
+
+p{
+  color: white;
+}
+
+@media screen and (max-width: 600px){
+  /* footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  } */
+
+  .flex{
+    flex-direction: column-reverse;
+  }
+}

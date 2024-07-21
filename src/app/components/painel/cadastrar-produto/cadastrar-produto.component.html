@@ -1,0 +1,134 @@
+<form [formGroup]="produtoFormGroup" (ngSubmit)="salvarProduto()">
+  <input type="hidden" value="{{ id }}">
+  <section class="cadastrar-produtos">
+    <h1 class="titulo-mobile">Cadastrar Produtos</h1>
+    <header>
+      <h1 class="titulo-desktop">Cadastrar Produtos</h1>
+      <span class="p-float-label">
+        <input class="scrape" pInputText id="url" formControlName="url"/>
+        <label htmlFor="Link do produto">Link do produto</label>
+      </span>
+      <!-- <input class="scrape" formControlName="url" type="text" placeholder="Link do produto"> -->
+      <!-- <button (click)="rasparProduto()">PESQUISAR</button> -->
+      <input class="botao-cadastrar" type="submit">
+    </header>
+
+    <div class="formulario">
+
+      <div class="titulo">
+        <span class="p-float-label">
+          <input pInputText id="copy" formControlName="copy"/>
+          <label htmlFor="copy">Copy</label>
+        </span>
+        <span class="mt-4 p-float-label">
+          <input pInputText id="Titulo" formControlName="titulo"/>
+          <label htmlFor="titulo">Titulo</label>
+        </span>
+      </div>
+
+      <div class=" grupo">
+        <span class="p-float-label">
+          <input pInputText id="precoParcelado" formControlName="precoParcelado" />
+          <label htmlFor="precoParcelado">Preço Parcelado</label>
+        </span>
+        <span class="p-float-label">
+          <input pInputText id="preco" formControlName="preco" />
+          <label htmlFor="preco">Preço À Vista</label>
+        </span>
+        <span>
+          <select class="dropdown text-primary-50 font-medium text-base" formControlName="freteVariacoes" name="freteVariacoes">
+            <option value="">Selecione o Frete</option>
+            <option value="Frete Grátis">Frete Grátis</option>
+            <option value="Frete Grátis Algumas Regiões">Frete Grátis Algumas Regiões</option>
+            <option value="Grátis Retirando na Loja">Grátis Retirando na Loja</option>
+            <option value="Frete Econômico Ou Grátis Retirando na Loja">Frete Econômico Ou Grátis Retirando na Loja</option>
+            <option value="Frete Grátis Prime">Frete Grátis Prime</option>
+            <option value="Frete Econômico">Frete Econômico</option>
+          </select>
+          <!-- <p-dropdown styleClass="dropdown" [options]="frete" name="freteVariacoes" formControlName="freteVariacoes" optionLabel="name" [showClear]="true"
+            placeholder="Escolha o Frete"></p-dropdown> -->
+        </span>
+      </div>
+
+      <div class="link">
+        <span class="p-float-label">
+          <input class="w-full" pInputText id="link" formControlName="link_se"/>
+          <label htmlFor="link">Link Sergipe Ofertas</label>
+        </span>
+      </div>
+
+      <div class="link">
+        <span class="p-float-label">
+          <input class="w-full" pInputText id="link" formControlName="link_ofm"/>
+          <label htmlFor="link">Link Oferta Mais Cupom</label>
+        </span>
+      </div>
+
+      <div class="grupo">
+        <span>
+          <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="mensagemAdicional" name="mensagemAdicional">
+            <option value="">Selecione um Mensagem</option>
+            <option value="Promoção sujeita a alteração a qualquer momento">Promoção sujeita a alteração a qualquer momento</option>
+            <option value="Compartilhe com seus Amigos">Compartilhe com seus Amigos</option>
+          </select>
+        </span>
+        <span>
+          <select class="dropdown w-11 text-primary-50 font-medium text-base" formControlName="loja" name="loja">
+            <option value="">Selecione uma Loja</option>
+            <option *ngFor="let item of lojas" value="{{item.id}}">{{ item.nome_loja }}</option>
+          </select>
+        </span>
+        <span>
+          <select class="dropdown w-full text-primary-50 font-medium text-base" formControlName="id_categoria" name="id_categoria">
+            <option value="">Selecione uma Categoria</option>
+            <option *ngFor="let item of categorias" value="{{item.categoria_id}}">{{ item.nome_categoria }}</option>
+          </select>
+          <!-- <p-dropdown styleClass="dropdown w-full" [options]="categorias" formControlName="id_categoria" name="id_categoria" optionLabel="nome_categoria" [showClear]="true"
+            placeholder="Escolha a Categoria"></p-dropdown> -->
+        </span>
+      </div>
+
+      <div class="grupo">
+        <div class="felx w-6">
+          <h2>Imagem</h2>
+          <div id="imagens">
+            <label for="fileInput">
+              <input formControlName="imgem" (change)="onFileChange($event)" id="fileInput" type="file" #fileInput>
+              <div id="file-input-label">
+                <div *ngIf="true">
+                  <img *ngIf="produto != undefined" [src]="imagemView ==  ''? scraperProduto.urlImagem : imagemView!"
+                    alt="Imagem Site">
+                  <img *ngIf="produto.id != 0" [src]=" produto.imagem != ''? apiUrl+'/produto/download/'+produto.imagem : imagemView" alt="Selected Image">
+                </div>
+                <div *ngIf="false">Selecionar Site</div>
+              </div>
+            </label>
+
+            <label for="fileInputs">
+              <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)" id="fileInputs" type="file" #fileInputs>
+              <div id="file-input-label">
+                <div *ngIf="true">
+                  <img [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial" alt="Imagem Social">
+                </div>
+                <div *ngIf="false">Imagem Social</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="w-6">
+          <span class="p-float-label w-full">
+            <input class="w-full" pInputText id="cupom" formControlName="cupom"/>
+            <label htmlFor="Cupom">Cupom</label>
+          </span>
+          <span class="p-float-label w-full">
+            <input class="w-full h-10rem mt-5" pInputText id="descricao" formControlName="descricao" />
+            <label htmlFor="descricao">Descriçao</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<p-toast></p-toast>

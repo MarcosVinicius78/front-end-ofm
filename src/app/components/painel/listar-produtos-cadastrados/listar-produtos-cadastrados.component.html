@@ -1,0 +1,70 @@
+<section>
+  <header>
+    <div>
+      <h1>Produtos Cadastrados</h1>
+    </div>
+    <input (click)="apagarVariosProdutos()" type="submit" value="Apagar">
+  </header>
+
+  <div class="separar">
+    <p-table styleClass="table-custom" [value]="produtos" [(selection)]="selectedProducts" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th>Titulo</th>
+          <th>Preço</th>
+          <th>Loja</th>
+          <th>Story</th>
+          <th>Post</th>
+          <th>Opções</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td class="text-center">
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td>
+            <a href="/painel/atualizar-produtos/{{item.id}}">
+              {{item.titulo}}
+            </a>
+          </td>
+          <td>{{item.preco}}</td>
+          <td>
+            <span *ngIf="item.loja != null">
+              {{item.loja.nome_loja}}
+            </span>
+          </td>
+          <td>
+            <i (click)="gerarStory(item.preco, item.titulo, item.imagemSocial, item.freteVariacoes, item.cupom, item.link)"
+              class="story pi pi-image"></i>
+          </td>
+          <td class="text-center">
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item)"></i>
+          </td>
+          <td class="text-center">
+            <!-- <i class="pi pi-ellipsis-v"></i>
+            <div class="opcoes">
+              <i (click)="apagarProduto(item.id, item.imagem, item.imagemSocial)" class="pi pi-trash">APAGAR</i>
+              <a href="/painel/atualizar-produtos/{{item.id}}">
+                <i class="pi pi-pencil">EDITAR</i>
+              </a>
+            </div> -->
+            <app-menuOpcoes [product]="item" [menuOpen]="openMenuId === item.id"
+            (toggleMenu)="toggleMenu(item.id)"></app-menuOpcoes>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="paginacao">
+    <p-paginator [first]="0" [rows]="1" [totalRecords]="totalPage" (onPageChange)="changePage($event)"
+      [showCurrentPageReport]="true" currentPageReportTemplate="{first} de {totalRecords}" [showPageLinks]="false"
+      [showFirstLastIcon]="false"></p-paginator>
+
+  </div>
+</section>
+
+<p-toast></p-toast>

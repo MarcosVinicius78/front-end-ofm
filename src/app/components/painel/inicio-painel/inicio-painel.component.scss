@@ -1,0 +1,105 @@
+.section-painel{
+  display: flex;
+  justify-content: space-between;
+}
+
+section{
+  background-color: #1c475e;
+}
+
+.inicio{
+  display: block;
+  width: 80%;
+  margin-right: 20px;
+  height: calc(98vh - 70px);
+  background-color: #1c475e;
+  border-radius: 10px;
+  overflow-y: auto;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
+}
+
+.sair{
+  cursor: pointer;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #163a4d;
+  margin-bottom: 13px;
+}
+
+header div{
+  margin-right: 10px;
+}
+
+header div input{
+  padding: 10px;
+  width: 100px;
+  background-color: red;
+  border: none;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+header h1{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  margin-left: 30px;
+  height: 70px;
+}
+
+header h1 a{
+  margin-left: 30px;
+  color: white;
+}
+
+/* section{
+  height: 100vh;
+} */
+
+/* .inicio{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+} */
+
+/* .inicio section{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+} */
+
+/* .inicio section div{
+  width: 300px;
+  height: 100px;
+  background-color: rgb(211, 211, 211);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+@media screen and (max-width: 720px) {
+  .section-painel{
+    display: block;
+  }
+
+  .inicio{
+    width: 100%;
+  }
+
+  header h1{
+    font-size: 19px;
+  }
+}

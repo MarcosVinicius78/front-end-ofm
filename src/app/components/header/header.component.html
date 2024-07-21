@@ -1,0 +1,22 @@
+<header class="header">
+  <a class="icon-h1 flex" href="">
+    <!-- <img class="img-icon" src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt="sergipe"> -->
+    <h1 class="ml-8" routerLink="">Ofertas Mais Cupons</h1>
+  </a>
+  <i class="menu-icon pi pi-bars" (click)="openMenu()"></i>
+  <nav class="desktop_menu" [class.mobile_menu]="menuValue">
+    <i (click)="openMenu()" class="fechar-menu pi pi-times p-2"></i>
+    <a href="">RADAR DE OFERTAS</a>
+
+    <div>
+      <a (click)="toggleCategoria()" class="dropbtn">CATEGORIAS</a>
+      <div id="categ" class="dropdown-content">
+        <a id="cat" *ngFor="let item of categorias" href="produtos-categoria/{{item.categoria_id}}">{{
+          item.nome_categoria }}</a>
+      </div>
+    </div>
+    <a routerLink="/sobre">QUEM SOMOS</a>
+    <a routerLink="blog">BLOG</a>
+    <a href="/grupos">Grupos</a>
+  </nav>
+</header>

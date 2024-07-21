@@ -1,0 +1,79 @@
+:host ::ng-deep {
+  section {
+    /* background-color: aqua; */
+    height: calc(100% - 10px);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  header input {
+    width: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+
+  header div:first-child {
+    width: 90%;
+  }
+
+  header h1 {
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 24px;
+  }
+
+  .paginacao {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .opcoes {
+    display: flex;
+    justify-content: space-around;
+    width: 70px;
+  }
+
+  .opcoes a i {
+    color: blue;
+    cursor: pointer;
+  }
+
+  .opcoes i {
+    color: red;
+    cursor: pointer;
+  }
+
+  .p-paginator {
+    background-color: #154666;
+  }
+
+  .p-paginator-next {
+    color: white;
+  }
+
+  .p-paginator-prev {
+    color: white;
+  }
+
+  .p-paginator-current {
+    color: white;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: #163a4d;
+    color: white;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    background-color: #163a4d;
+    color: white;
+    border: 1px solid #464646;
+    border-width: 0 0 1px 0;
+  }
+}

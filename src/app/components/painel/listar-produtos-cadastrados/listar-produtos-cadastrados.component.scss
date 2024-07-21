@@ -1,0 +1,194 @@
+:host ::ng-deep {
+  section {
+    height: calc(100% - 10px);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  header input {
+    width: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+
+  header div:first-child {
+    width: 90%;
+  }
+
+  header h1 {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    font-size: 24px;
+  }
+
+  .story {
+    cursor: pointer;
+  }
+
+  .separar {
+    margin-top: 10px;
+    height: calc(100% - 120px);
+  }
+
+  .paginacao {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .p-paginator {
+    background-color: #154666;
+  }
+
+  .p-paginator-next {
+    color: white;
+  }
+
+  .p-paginator-prev {
+    color: white;
+  }
+
+  .p-paginator-current {
+    color: white;
+  }
+
+  .p-datatable .p-datatable-thead>tr>th {
+    background-color: #163a4d;
+    color: white;
+  }
+
+  .p-datatable .p-datatable-tbody>tr>td {
+    background-color: #163a4d;
+    color: white;
+    border: 1px solid #464646;
+    border-width: 0 0 1px 0;
+    // padding: 0
+  }
+
+  .p-datatable {
+    height: 100%;
+  }
+
+  .p-datatable-wrapper {
+    height: 100%;
+  }
+
+
+  .p-datatable-tbody tr td:nth-child(5) {
+    text-align: center;
+  }
+
+  .p-datatable-table {
+    // height: 100%;
+  }
+
+  .p-datatable-tbody tr td:nth-child(2) a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    line-break: strict;
+    white-space: normal;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    padding: 0;
+
+  }
+
+  .p-datatable-tbody tr td:nth-child(3) {
+    max-width: 130px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .p-datatable-tbody tr td:nth-child(2) {
+    padding: 0 !important;
+    width: 50%;
+  }
+
+  .p-datatable .p-datatable-tbody>tr>td {
+    padding: 0.7rem 0.7rem;
+  }
+
+  .p-datatable .p-datatable-tbody>tr {
+    // height: 40px;
+  }
+
+  @media screen and (max-width: 720px) {
+    .p-datatable-thead th:nth-child(4) {
+      display: none;
+    }
+
+    .p-datatable {
+      width: 98%;
+      margin: 0 auto;
+    }
+
+    .p-datatable .p-datatable-tbody>tr {
+      height: 50px;
+    }
+
+    .p-datatable-tbody tr td:nth-child(4) {
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(3) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(3) {
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(7) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(7) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(1) {
+      display: none;
+    }
+
+    .p-datatable-thead th:nth-child(5) {
+      width: 5px !important;
+    }
+
+    .p-datatable-tbody tr td:nth-child(1) {
+      display: none;
+    }
+
+    .p-datatable-tbody tr td:nth-child(2) a {
+      margin-left: 10px;
+    }
+
+    .p-datatable-tbody tr td {
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      font-size: 14px;
+      max-width: 120px;
+      text-overflow: ellipsis;
+    }
+
+    header input {
+      display: none;
+    }
+
+    header div {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

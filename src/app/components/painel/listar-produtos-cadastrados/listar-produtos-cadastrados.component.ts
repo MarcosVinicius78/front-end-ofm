@@ -160,13 +160,8 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*`;
     }
 
-    if (produto.freteVariacoes) {
-      if (produto.cupom) {
-        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-      } else {
-        estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-      }
-    }
+    estruturaCompartilhamento += `\n\u{1F4E6} *Frete Grátis* Algumas Regiões\n`;
+
 
     if (isPlatformBrowser(this.platformId)) {
 

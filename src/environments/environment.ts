@@ -6,7 +6,8 @@ export const environment = {
   // apiUrl: 'http://www.systemdevmv.site/api'
 
   // esse aqui
-  apiUrl: 'https://sergipeofertas.com.br/api'
+  // apiUrl: 'https://sergipeofertas.com.br/api'
+  apiUrl: 'https://ofertasmaiscupons.com.br/api'
 
 
   // apiUrl: 'http://www.sergipeofertas.com.br/api'

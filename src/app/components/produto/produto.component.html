@@ -53,8 +53,8 @@
             </div>
 
             <div class="frete mt-3 mb-2">
-              <i *ngIf="produto.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="produto.freteVariacoes.length < 48">{{ produto.freteVariacoes }}</p>
+              <i *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48" class="pi pi-truck"></i>
+              <p *ngIf="produto.freteVariacoes && produto.freteVariacoes.length < 48">{{ produto.freteVariacoes }}</p>
             </div>
 
             <div class="ir-loja">

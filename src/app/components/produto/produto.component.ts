@@ -84,16 +84,16 @@ export class ProdutoComponent implements OnInit {
 
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
 
-    this.metaService.updateMetaTags(
-      productName,
-      productDescription,
-      productImageUrl
-    );
+    // this.metaService.updateMetaTags(
+    //   productName,
+    //   productDescription,
+    //   productImageUrl
+    // );
     // Limpa todas as tags meta existentes
-    this.meta.removeTag('name="description"');
-    this.meta.removeTag('property="og:title"');
-    this.meta.removeTag('property="og:description"');
-    this.meta.removeTag('property="og:image"');
+    // this.meta.removeTag('name="description"');
+    // this.meta.removeTag('property="og:title"');
+    // this.meta.removeTag('property="og:description"');
+    // this.meta.removeTag('property="og:image"');
 
     // Adiciona as novas tags meta
     this.meta.addTag({ property: 'og:image:height', content: "300" });
@@ -107,10 +107,10 @@ export class ProdutoComponent implements OnInit {
     this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
 
 
-    this.meta.addTag({ name: 'description', content: "as melhores promoções" });
-    this.meta.addTag({ property: 'og:title', content: productName });
-    this.meta.addTag({ property: 'og:description', content: productDescription });
-    this.meta.addTag({ property: 'og:image', content:`${this.apiUrl}/produto/download/${this.produto.imagem}` });
+    this.meta.updateTag({ name: 'description', content: "as melhores promoções" });
+    this.meta.updateTag({ property: 'og:title', content: productName });
+    this.meta.updateTag({ property: 'og:description', content: productDescription });
+    this.meta.updateTag({ property: 'og:image', content:`${this.apiUrl}/produto/download/${this.produto.imagem}` });
   }
 
   fecharModal() {

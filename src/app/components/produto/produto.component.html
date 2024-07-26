@@ -186,7 +186,7 @@
 
       <div class="info-modal">
         <p>Instruções Adicionais</p>
-        <P>{{ produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
+        <P>{{ produtoModalDto.cupomInformacoes || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
       </div>
 
       <a href="{{produtoModalDto.link}}" target="_blank">IR A LOJA</a>

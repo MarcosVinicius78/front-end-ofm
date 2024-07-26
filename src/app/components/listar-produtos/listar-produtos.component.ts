@@ -226,7 +226,7 @@ export class ListarProdutosComponent implements OnInit {
   abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
     console.log(frete.length)
 
-    if (cupom.length > 18 || frete.length > 48) {
+    if (cupom.length > 18 && cupom != null || frete.length > 48 && frete != null) {
       this.produtoModalDto.id = id;
       this.produtoModalDto.titulo = titulo;
       this.produtoModalDto.imagem = img;

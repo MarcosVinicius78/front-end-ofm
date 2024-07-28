@@ -75,9 +75,9 @@ export class ProdutoComponent implements OnInit {
 
       this.produto = response;
       this.listarProdutos()
-      if (isPlatformBrowser(this.platformId)) {
-        this.setProductMetaTags(this.produto.titulo, this.produto.descricao, window.location.href);
-      }
+      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
+      // if (isPlatformBrowser(this.platformId)) {
+      // }
 
     });
   }
@@ -103,8 +103,8 @@ export class ProdutoComponent implements OnInit {
     // if (isPlatformBrowser(this.platformId)) {
     //   this.meta.addTag({ property: 'og:url', content: window.location.href });
     // }
-    this.meta.addTag({ property: 'og:type', content: "website" });
     // this.meta.addTag({ property: 'og:image:type', content: "image/jpeg" });
+    this.meta.addTag({ property: 'og:type', content: "website" });
 
 
     this.meta.updateTag({ name: 'description', content: "vou testar" });

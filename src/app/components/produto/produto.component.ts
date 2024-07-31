@@ -85,14 +85,13 @@ export class ProdutoComponent implements OnInit {
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
 
     if (isPlatformBrowser(this.platformId)) {
-      this.meta.addTag({ property: 'og:url', content: window.location.href });
-      this.meta.addTag({ property: 'og:type', content: "website" });
-      this.meta.updateTag({ name: 'description', content: "Ofertas" });
-      this.meta.updateTag({ property: 'og:title', content: productName });
-      this.meta.updateTag({ property: 'og:description', content: productDescription });
-      this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
     }
-
+    this.meta.addTag({ property: 'og:url', content: window.location.href });
+    this.meta.addTag({ property: 'og:type', content: "website" });
+    this.meta.updateTag({ name: 'description', content: "Ofertas" });
+    this.meta.updateTag({ property: 'og:title', content: productName });
+    this.meta.updateTag({ property: 'og:description', content: productDescription });
+    this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
   }
 
   fecharModal() {
@@ -231,7 +230,6 @@ export class ProdutoComponent implements OnInit {
       this.produtoModalDto.cupomInformacoes = cupom;
       this.produtoModalDto.link = link;
       this.produtoModalDto.frete = frete
-      console.log(this.produtoModalDto)
       event.preventDefault();
       this.modalInfo = true;
     }

@@ -63,15 +63,16 @@ export class ListarProdutosComponent implements OnInit {
     private produtoService: ProdutoService,
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
 
-    if (this.links.banners.length != 0) {
-      this.startSlideShow();
-      this.showSlides(this.slideIndex)
-    }
+    // if (this.links.banners.length != 0) {
+    //   this.startSlideShow();
+    //   this.showSlides(this.slideIndex)
+    // }
 
     this.pegarLinks()
 
@@ -103,12 +104,16 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   private isAtBottom(): boolean {
-    const threshold = 100; // Buffer de 100 pixels antes de considerar que o scroll chegou ao final
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-    const isBottom = scrollTop + clientHeight >= scrollHeight - threshold;
-    return isBottom;
+    if (isPlatformBrowser(this.platformId)) {
+      const threshold = 100; // Buffer de 100 pixels antes de considerar que o scroll chegou ao final
+      const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+      const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+      const isBottom = scrollTop + clientHeight >= scrollHeight - threshold;
+      return isBottom;
+    }
+
+    return false;
   }
 
   @HostListener('window:scroll', [])
@@ -189,35 +194,35 @@ export class ListarProdutosComponent implements OnInit {
     });
   }
 
-  plusSlides(n: number) {
-    this.showSlides(this.slideIndex += n);
-  }
+  // plusSlides(n: number) {
+  //   this.showSlides(this.slideIndex += n);
+  // }
 
-  showSlides(n: number) {
-    let i;
-    const slides = document.getElementsByClassName("mySlides") as HTMLCollectionOf<HTMLElement>;
+  // showSlides(n: number) {
+  //   let i;
+  //   const slides = document.getElementsByClassName("mySlides") as HTMLCollectionOf<HTMLElement>;
 
-    if (n > slides.length) { this.slideIndex = 1 }
-    if (n < 1) { this.slideIndex = slides.length }
+  //   if (n > slides.length) { this.slideIndex = 1 }
+  //   if (n < 1) { this.slideIndex = slides.length }
 
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
+  //   for (i = 0; i < slides.length; i++) {
+  //     slides[i].style.display = "none";
+  //   }
 
-    slides[this.slideIndex - 1].style.display = "block";
+  //   slides[this.slideIndex - 1].style.display = "block";
 
-  }
-  intervalId: any;
+  // }
+  // intervalId: any;
 
-  startSlideShow() {
-    this.intervalId = setInterval(() => {
-      this.plusSlides(1);
-    }, 5000); // Altere o intervalo de acordo com sua preferência (5 segundos = 5000 milissegundos)
-  }
+  // startSlideShow() {
+  //   this.intervalId = setInterval(() => {
+  //     this.plusSlides(1);
+  //   }, 5000); // Altere o intervalo de acordo com sua preferência (5 segundos = 5000 milissegundos)
+  // }
 
-  stopSlideShow() {
-    clearInterval(this.intervalId);
-  }
+  // stopSlideShow() {
+  //   clearInterval(this.intervalId);
+  // }
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);

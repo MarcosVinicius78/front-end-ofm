@@ -43,8 +43,8 @@ const routes: Routes = [
   { path: 'grupos', component: GruposComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
-  { path: 'blank', component: BlankComponent }
-  // { path: '', redirectTo: '/inicio', pathMatch: 'full'},
+  { path: 'blank', component: BlankComponent },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   // { path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 

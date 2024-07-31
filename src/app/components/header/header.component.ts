@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
   categorias: Categoria[] = [];
 
   constructor(
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
@@ -26,10 +27,12 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleCategoria(): void {
+    if (isPlatformBrowser(this.platformId)) {
       const dropdown = document.getElementById('categ');
       if (dropdown) {
         dropdown.classList.toggle('show');
       }
+    }
   }
 
   openMenu(){

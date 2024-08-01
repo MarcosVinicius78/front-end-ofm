@@ -49,12 +49,11 @@ export class ProdutoComponent implements OnInit {
   produtoModalDto = new ProdutoModalDto();
 
   constructor(
-    private metaService: MetaService,
     private route: ActivatedRoute,
     private produtoService: ProdutoService,
     private meta: Meta,
     private reportService: ReportService,
-    // private dialog: MatDialog,
+    // private dialog: Ma tDialog,
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
     // private snackBar: MatSnackBar
@@ -66,10 +65,10 @@ export class ProdutoComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id')!) {
       this.id = this.route.snapshot.paramMap.get('id')!;
     }
-    this.listarProdutos()
     this.pegarProduto();
 
     this.pegarLinks();
+    this.listarProdutos()
   }
 
   pegarProduto() {

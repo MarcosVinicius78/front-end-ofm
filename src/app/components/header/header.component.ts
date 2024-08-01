@@ -27,12 +27,12 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleCategoria(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const dropdown = document.getElementById('categ');
-      if (dropdown) {
-        dropdown.classList.toggle('show');
-      }
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   const dropdown = document.getElementById('categ');
+    //   if (dropdown) {
+    //     dropdown.classList.toggle('show');
+    //   }
+    // }
   }
 
   openMenu(){

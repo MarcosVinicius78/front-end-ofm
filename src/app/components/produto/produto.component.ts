@@ -66,6 +66,7 @@ export class ProdutoComponent implements OnInit {
     if (this.route.snapshot.paramMap.get('id')!) {
       this.id = this.route.snapshot.paramMap.get('id')!;
     }
+    this.listarProdutos()
     this.pegarProduto();
 
     this.pegarLinks();
@@ -76,7 +77,7 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.pegarProduto(this.id).subscribe(response => {
 
       this.produto = response;
-      this.listarProdutos()
+      console.log("aqui pegar")
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
       // if (isPlatformBrowser(this.platformId)) {
       // }
@@ -220,7 +221,6 @@ export class ProdutoComponent implements OnInit {
   }
 
   abrirModalInfo(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number) {
-    console.log(frete.length)
 
     if (cupom && cupom.length > 18 || frete && frete.length > 48) {
       this.produtoModalDto.id = id;

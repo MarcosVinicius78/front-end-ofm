@@ -77,7 +77,6 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.pegarProduto(this.id).subscribe(response => {
 
       this.produto = response;
-      console.log("aqui pegar")
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
       // if (isPlatformBrowser(this.platformId)) {
       // }
@@ -164,6 +163,8 @@ export class ProdutoComponent implements OnInit {
   listarProdutos() {
     this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = response.content
+      console.log("aqui pegar")
+
     });
   }
 

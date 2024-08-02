@@ -86,6 +86,8 @@ export class ProdutoComponent implements OnInit {
   private setProductMetaTags(productName: string, productDescription: string, productImageUrl: string): void {
 
     this.meta.addTag({ property: 'og:type', content: "website" });
+    this.meta.addTag({ property: 'og:image:width', content: "500" });
+    this.meta.addTag({ property: 'og:image:height', content: "500" });
     this.meta.updateTag({ name: 'description', content: "Ofertas" });
     this.meta.updateTag({ property: 'og:title', content: productName });
     this.meta.updateTag({ property: 'og:description', content: productDescription });

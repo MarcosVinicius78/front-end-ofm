@@ -162,8 +162,6 @@ export class ProdutoComponent implements OnInit {
   listarProdutos() {
     this.produtoService.listarProduto(this.page, this.size).subscribe(response => {
       this.produtos = response.content
-      console.log(this.produtos)
-
     });
   }
 

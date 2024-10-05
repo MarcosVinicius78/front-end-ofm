@@ -145,29 +145,40 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       estruturaCompartilhamento += `*${produto.copy}*\n\n`
     }
 
-    if (produto.titulo.length > 55) {
+    if (produto.copy.length === 0 && produto.titulo.length > 55) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo.substring(0, 60)}...\n\n`;
-    } else {
+    } else if (produto.copy.length === 0) {
       estruturaCompartilhamento += `\u{1F4CC} ${produto.titulo}\n\n`;
     }
-    estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
 
-    if (produto.parcelado) {
+    if (produto.freteVariacoes.includes("CUPOM")) {
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
+    } else if (produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
+    } else {
+      estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
+    }
+
+    if (produto.freteVariacoes.includes("CUPOM")) {
+      estruturaCompartilhamento += `* ${produto.freteVariacoes}\n`;
+    }
+
+    if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+      estruturaCompartilhamento += `_${produto.parcelado}_\n`;
+    } else if (produto.parcelado) {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
+
+    // estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
+
+    // if (produto.parcelado) {
+    //   estruturaCompartilhamento += `* ${produto.parcelado}\n`;
+    // }
     // \u{1F4B3}
     if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
-    }else if (produto.cupom){
+    } else if (produto.cupom) {
       estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
-    }
-
-    if (produto.freteVariacoes && produto.freteVariacoes.toLocaleLowerCase().includes("prime")) {
-      estruturaCompartilhamento += `\n\u{1F4E6} ${produto.freteVariacoes}\n`;
-    }else if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
-      estruturaCompartilhamento += `\n* ${produto.freteVariacoes}\n`;
-    }else{
-      estruturaCompartilhamento += `\n\u{1F4E6} *Frete Grátis* Algumas Regiões\n`;
     }
 
     if (isPlatformBrowser(this.platformId)) {
@@ -185,6 +196,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       //     estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
       //   }
       // }
+    }
+
+    if (produto.freteVariacoes.includes("Algumas")) {
+      estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
+    } else if (!produto.freteVariacoes.includes("CUPOM")) {
+      estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 
     if (produto.mensagemAdicional) {

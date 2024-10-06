@@ -73,7 +73,7 @@ export class ProdutoComponent implements OnInit {
 
   pegarProduto() {
 
-    this.produtoService.pegarProduto(this.id).subscribe(response => {
+    this.produtoService.pegarProduto(this.id,0).subscribe(response => {
 
       this.produto = response;
       this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");

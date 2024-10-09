@@ -153,71 +153,42 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
-    } else if (produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
+    }else if(produto.parcelado.toLocaleLowerCase().includes("sem juros")){
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
-    } else {
+    }else{
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
-    }
-
-    if (produto.freteVariacoes.includes("CUPOM")) {
-      estruturaCompartilhamento += `* ${produto.freteVariacoes}\n`;
     }
 
     if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `_${produto.parcelado}_\n`;
-    } else if (produto.parcelado) {
+    }else if (produto.parcelado) {
       estruturaCompartilhamento += `* ${produto.parcelado}\n`;
     }
 
-    // estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (À Vista)*\n`;
-
-    // if (produto.parcelado) {
-    //   estruturaCompartilhamento += `* ${produto.parcelado}\n`;
-    // }
-    // \u{1F4B3}
     if (produto.cupom && produto.cupom.length < 20) {
       estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
-    } else if (produto.cupom) {
+    }else if (produto.cupom){
       estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
-    // if (isPlatformBrowser(this.platformId)) {
-
-    //   if (this.route.url === "/painel") {
-    //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-    //   } else {
-    //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-    //   }
-    //   // if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon") || produto.loja.nome_loja.toLocaleLowerCase().includes("mercado")) {
-    //   // } else {
-    //   //   if (this.route.url === "/painel") {
-    //   //     estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
-    //   //   } else {
-    //   //     estruturaCompartilhamento += `\n *\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
-    //   //   }
-    //   // }
-    // }
-
     if (isPlatformBrowser(this.platformId)) {
 
-      if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon")) {
-        if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
-        } else {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
-        }
-      } else {
+      // if (produto.loja.nome_loja.toLocaleLowerCase().includes("amazon")) {
+      //   if (this.route.url === "/painel") {
+      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+      //   } else {
+      //     estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+      //   }
+      // } else {
         if (this.route.url === "/painel") {
           estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
         } else {
           estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}* ${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
         }
-      }
+
     }
 
-    if (produto.freteVariacoes.includes("Algumas")) {
-      estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
-    } else if (!produto.freteVariacoes.includes("CUPOM")) {
+    if(produto.freteVariacoes.includes("CUPOM")){
       estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 

@@ -1,9 +1,5 @@
-
+<!--
 <div class="header">
-
-  <div class="img-mobile">
-    <!-- <img src="../../../assets/413307893_685333763588479_6412520808455805246_n.jpg" alt=""> -->
-  </div>
 
   <div class="texto">
     <p>
@@ -80,4 +76,23 @@
   <article class="foto-com-carrinho">
     <img src="../../../assets/foto-pagina-grupo.png" alt="foto-grupo">
   </article>
+</div> -->
+
+
+
+<div class="container">
+  <div class="overlay">
+    <div class="logo">
+      <img src="../../../assets/img/logo_transparente_OMC-removebg-preview.png" alt="Logo Sergipe Ofertas">
+      <h1>OFERTAS MAIS CUPONS</h1>
+    </div>
+    <div class="titulo2">
+      <h2>RECEBA PROMOÇÕES NO SEU WHATSAPP</h2>
+    </div>
+    <a *ngIf="links != undefined" [href]="links.links.whatsapp" class="cta-button">QUERO RECEBER</a>
+    <p class="description">
+      Ao participar dos nossos Grupos você receberá ofertas, cupons e descontos das Grandes Lojas com Exclusividade!
+    </p>
+    <p class="link">www.ofertasmaiscupons.com.br</p>
+  </div>
 </div>

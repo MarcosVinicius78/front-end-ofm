@@ -22,6 +22,7 @@ export class GruposComponent implements OnInit{
   pegarLinks(){
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
+      console.log(this.links.links.whatsapp)
     });
   }
 

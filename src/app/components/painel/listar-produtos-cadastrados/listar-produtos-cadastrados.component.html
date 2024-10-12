@@ -17,7 +17,12 @@
           <th>Preço</th>
           <th>Loja</th>
           <th>Story</th>
-          <th>Post</th>
+          <th>
+            <img src="../../../../assets/img/whatsapp.png" alt="whatsapp">
+          </th>
+          <th>
+            <img src="../../../../assets/img/telegram.jpg" alt="telegram">
+          </th>
           <th>Opções</th>
         </tr>
       </ng-template>
@@ -42,16 +47,12 @@
               class="story pi pi-image"></i>
           </td>
           <td class="text-center">
-            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item)"></i>
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item, 1)"></i>
           </td>
           <td class="text-center">
-            <!-- <i class="pi pi-ellipsis-v"></i>
-            <div class="opcoes">
-              <i (click)="apagarProduto(item.id, item.imagem, item.imagemSocial)" class="pi pi-trash">APAGAR</i>
-              <a href="/painel/atualizar-produtos/{{item.id}}">
-                <i class="pi pi-pencil">EDITAR</i>
-              </a>
-            </div> -->
+            <i class="cursor-pointer pi pi-copy" (click)="copiarParaAreaTransferencia(item,2)"></i>
+          </td>
+          <td class="text-center">
             <app-menuOpcoes [product]="item" [menuOpen]="openMenuId === item.id"
             (toggleMenu)="toggleMenu(item.id)"></app-menuOpcoes>
           </td>

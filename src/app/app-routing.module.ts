@@ -18,6 +18,7 @@ import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { RedirectGuardService } from './routeguard/redirect-guard.service';
 import { BlankComponent } from './components/blank/blank.component';
+import { GrupoBaComponent } from './components/grupo-ba/grupo-ba.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,8 @@ const routes: Routes = [
   { path: '', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
-  { path: 'grupo-ba', component: GruposComponent, data: { hideHeader: false, hideFooter: false } },
+  { path: 'grupo-ba', component: GrupoBaComponent, data: { hideHeader: false, hideFooter: false } },
+  { path: 'grupos', component: GruposComponent, data: { hideHeader: false, hideFooter: false } },
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blank', component: BlankComponent },

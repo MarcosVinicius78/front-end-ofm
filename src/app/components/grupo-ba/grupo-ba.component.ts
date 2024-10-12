@@ -2,12 +2,13 @@ import { LinkBannerService } from './../../service/painel/link-banner.service';
 import { Component, OnInit } from '@angular/core';
 import { LinksBanner } from 'src/app/dto/LinksBanner';
 
+
 @Component({
-  selector: 'app-grupos',
-  templateUrl: './grupos.component.html',
-  styleUrls: ['./grupos.component.css']
+  selector: 'app-grupo-ba',
+  templateUrl: './grupo-ba.component.html',
+  styleUrls: ['./grupo-ba.component.css']
 })
-export class GruposComponent implements OnInit{
+export class GrupoBaComponent implements OnInit {
 
   links!: LinksBanner;
 
@@ -22,6 +23,7 @@ export class GruposComponent implements OnInit{
   pegarLinks(){
     this.linkBannerService.listarLinksEBanners().subscribe(response => {
       this.links = response;
+      console.log(this.links.links.whatsapp)
     });
   }
 

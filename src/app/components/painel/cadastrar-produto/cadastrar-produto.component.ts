@@ -268,6 +268,8 @@ export class CadastrarProdutoComponent implements OnInit {
       this.produto = response;
       this.id = response.id
 
+      console.log(this.produto);
+
       this.produtoFormGroup = this.formBuilder.group({
         titulo: [this.produto.titulo],
         preco: [this.produto.preco],

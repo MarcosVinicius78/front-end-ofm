@@ -109,7 +109,7 @@
               <input formControlName="imgemSocial" name="imgemSocial" (change)="onFileChangeSocial($event)" id="fileInputs" type="file" #fileInputs>
               <div id="file-input-label">
                 <div *ngIf="true">
-                  <img [src]="produto.imagemSocial != ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial" alt="Imagem Social">
+                  <img [src]="produto.imagemSocial !== ''? apiUrl+'/produto/download-imagem-real/'+produto.imagemSocial : imagemViewSocial" alt="Imagem Social">
                 </div>
                 <div *ngIf="false">Imagem Social</div>
               </div>

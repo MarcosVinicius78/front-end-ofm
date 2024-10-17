@@ -162,35 +162,34 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Frete Grátis)*\n`;
-    }else if(produto.parcelado.toLocaleLowerCase().includes("sem juros")){
+    } else if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco} (Parcelado)*\n`;
-    }else{
+    } else {
       estruturaCompartilhamento += `*\u{1F525} ${produto.preco}* à vista\n`;
     }
 
-    if (produto.parcelado && produto.parcelado.toLocaleLowerCase().includes("sem juros")) {
-      estruturaCompartilhamento += `_${produto.parcelado}_\n`;
-    }else if (produto.parcelado) {
-      estruturaCompartilhamento += `* ${produto.parcelado}\n`;
-    }
-
     if (produto.cupom && produto.cupom.length < 20) {
-      estruturaCompartilhamento += `\n\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
-    }else if (produto.cupom){
-      estruturaCompartilhamento += `\n_\u{1F5E3} ${produto.cupom}_\n`;
+      estruturaCompartilhamento += `\u{1F39F} Use o Cupom: *${produto.cupom}*\n`;
+    } else if (produto.cupom) {
+      estruturaCompartilhamento += `_\u{1F5E3} ${produto.cupom}_\n`;
     }
 
     if (isPlatformBrowser(this.platformId)) {
 
-        if (this.route.url === "/painel") {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
-        } else {
-          estruturaCompartilhamento += `\n*\u{1F6D2} Compre Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
-        }
+
+      if (this.route.url === "/painel" && (produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado"))) {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}`;
+      } else if( produto.loja.nome_loja.includes("Amazon") || produto.loja.nome_loja.includes("Mercado Livre")){
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}`;
+      }else if (this.route.url === "/painel") {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel", '')}oferta/${produto.id}?r=1`;
+      } else {
+        estruturaCompartilhamento += `\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${window.location.href.replace("painel/listar-produtos", '')}oferta/${produto.id}?r=1`;
+      }
 
     }
 
-    if(produto.freteVariacoes.includes("CUPOM")){
+    if (produto.freteVariacoes.includes("CUPOM")) {
       estruturaCompartilhamento += `\n\n\u{1F4E6} ${produto.freteVariacoes}`;
     }
 

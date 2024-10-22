@@ -22,6 +22,8 @@ import { ReportComponent } from './components/painel/report/report.component';
 import { LinksBannersComponent } from './components/painel/links-banners/links-banners.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DialogModule } from 'primeng/dialog';
+
 import { ButtonModule } from 'primeng/button';
 // import { MatDialogModule } from '@angular/material/dialog';
 // import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -43,6 +45,7 @@ import { ListaDePostsComponent } from './components/painel/lista-de-posts/lista-
 import { CardModule } from 'primeng/card';
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { BlankComponent } from './components/blank/blank.component';
+import { FormatTexPipe } from "./pipe/format-tex.pipe";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -69,24 +72,25 @@ import { BlankComponent } from './components/blank/blank.component';
         MenuOpcoesComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        // MatIconModule,
-        ButtonModule,
-        TableModule,
-        ToastModule,
-        EditorModule,
-        FileUploadModule,
-        ToolbarModule,
-        // MatDialogModule,
-        // MatSnackBarModule,
-        PaginatorModule,
-        InputTextModule,
-        DropdownModule,
-        MessagesModule,
-        CardModule], providers: [
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    // MatIconModule,
+    ButtonModule,
+    TableModule,
+    ToastModule,
+    EditorModule,
+    FileUploadModule,
+    ToolbarModule,
+    // MatDialogModule,
+    // MatSnackBarModule,
+    PaginatorModule,
+    InputTextModule,
+    DropdownModule,
+    MessagesModule,
+    DialogModule,
+    CardModule, FormatTexPipe], providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequireService,

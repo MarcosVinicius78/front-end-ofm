@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'oferta/:id', component: ProdutoComponent, data: { hideHeader: true, hideFooter: true }, canActivate: [RedirectGuardService] },
   { path: 'produtos-categoria/:id', component: ListarProdutosComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'grupo-ba', component: GrupoBaComponent, data: { hideHeader: false, hideFooter: false } },
-  { path: 'grupos', component: GruposComponent, data: { hideHeader: false, hideFooter: false } },
+  { path: 'grupos', component: GruposComponent, data: { hideHeader: false, hideFooter: false }, canActivate: [RedirectGuardService]},
   { path: 'blog', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blog/:id', component: BlogComponent, data: { hideHeader: true, hideFooter: true } },
   { path: 'blank', component: BlankComponent },

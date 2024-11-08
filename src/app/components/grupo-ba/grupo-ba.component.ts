@@ -20,10 +20,9 @@ export class GrupoBaComponent implements OnInit {
     this.pegarLinks()
   }
 
-  pegarLinks(){
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+  pegarLinks() {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.links = response;
-      console.log(this.links.links.whatsapp)
     });
   }
 

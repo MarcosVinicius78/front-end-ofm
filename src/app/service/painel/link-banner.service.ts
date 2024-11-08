@@ -17,9 +17,23 @@ export class LinkBannerService {
     return this.http.put(`${this.apiUrl}/banners`, links);
   }
 
-  listarLinksEBanners(){
-    return this.http.get<LinksBanner>(`${this.apiUrl}/banners/links-site/${environment.site}`);
-  }
+  listarLinksEBanners(): Promise<LinksBanner> {
+    return fetch(`${this.apiUrl}/banners/links-site/${environment.site}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Atribuir os dados à variável de classe se necessário
+            return data as LinksBanner; // Certifique-se de que o tipo está correto
+        })
+        .catch(error => {
+            console.error('Houve um problema com a requisição:', error);
+            throw error;
+        });
+}
 
   uploadImage(formData: FormData) {
     return this.http.post(`${this.apiUrl}/banners/upload`, formData);

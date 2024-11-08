@@ -41,7 +41,8 @@ export class LinksBannersComponent implements OnInit {
         whatsapp: [''],
         telegram: [''],
         instagram: [],
-        email: ['']
+        email: [''],
+        outros: ['']
       });
     }
 
@@ -66,6 +67,7 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        outros: this.linksFormGrupo.get(['outros'])?.value,
         siteId: environment.site
       };
     } else {
@@ -75,6 +77,7 @@ export class LinksBannersComponent implements OnInit {
         telegram: this.linksFormGrupo.get(['telegram'])?.value,
         instagram: this.linksFormGrupo.get(['instagram'])?.value,
         email: this.linksFormGrupo.get(['email'])?.value,
+        outros: this.linksFormGrupo.get(['outros'])?.value,
         siteId: environment.site
       };
     }
@@ -87,18 +90,18 @@ export class LinksBannersComponent implements OnInit {
   }
 
   listarLinksEBanners() {
-    this.linkBannerService.listarLinksEBanners().subscribe(response => {
+    this.linkBannerService.listarLinksEBanners().then(response => {
       this.linksEBanners = response;
 
       this.banners = response.banners
-      console.log(response.links)
 
       if (this.linksEBanners.links != undefined) {
         this.linksFormGrupo = this.formBuilder.group({
           whatsapp: this.linksEBanners.links.whatsapp,
           telegram: this.linksEBanners.links.telegram,
           instagram: this.linksEBanners.links.instagram,
-          email: this.linksEBanners.links.email
+          email: this.linksEBanners.links.email,
+          outros: this.linksEBanners.links.outros
         });
       }
     })

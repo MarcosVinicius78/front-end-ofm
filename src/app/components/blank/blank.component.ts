@@ -45,7 +45,7 @@ export class BlankComponent implements OnInit {
 
           this.produto = response;
 
-          window.location.href = response.link_se;
+          window.location.href = response.link_ofm;
         });
       } else if (r === '2' && id) {
         this.produtoService.pegarProduto(id, r).subscribe(response => {

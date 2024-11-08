@@ -24,7 +24,6 @@ export class RedirectGuardService implements CanActivate{
       const routeId = route.params['id'] || environment.site;
 
       if (queryParams && ['1', '2', '3'].includes(queryParams['r'])) {
-        alert(queryParams['r'])
         // Navegação com base no valor de 'r'
         this.router.navigate(['/blank'], { queryParams: { id: routeId, r: queryParams['r'] } });
 

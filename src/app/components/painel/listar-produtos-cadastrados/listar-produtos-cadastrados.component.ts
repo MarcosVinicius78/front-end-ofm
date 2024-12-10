@@ -175,15 +175,15 @@ export class ListarProdutosCadastradosComponent implements OnInit {
   montarEstruturaCompartilhamento(produto: Produtos, site: number) {
     let estruturaCompartilhamento = "";
 
-    const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n\n");
+    const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n");
 
     const montarTitulo = () => {
       if (produto.copy) {
-        adicionarTexto(`*${produto.copy}*`);
+        adicionarTexto(`*${produto.copy}\n*`);
       } else if (site === 2 || site === 1) {
-        adicionarTexto(`\u{1F4CC} ${produto.titulo?.substring(0, 60) ?? ''}...`);
+        adicionarTexto(`\u{1F4CC} ${produto.titulo?.substring(0, 60) ?? ''}...\n`);
       } else {
-        adicionarTexto(`\u{1F4CC} ${produto.titulo ?? ''}`);
+        adicionarTexto(`\u{1F4CC} ${produto.titulo ?? ''}\n`);
       }
     };
 
@@ -193,7 +193,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       } else if (produto.parcelado && produto.parcelado.toLowerCase().includes("sem juros")) {
         adicionarTexto(`*\u{1F525} ${produto.preco} (Parcelado)*`);
       } else {
-        adicionarTexto(`*\u{1F525} ${produto.preco}* à vista`);
+        adicionarTexto(`*\u{1F449}A Partir de ${produto.preco}\u{1F525}*`);
       }
     };
 
@@ -210,21 +210,19 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
 
+
       const loja = produto.loja?.nome_loja?.toLowerCase() || "";
-      const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-      if ((this.route.url === "/painel" || this.route.url === "/painel/listar-produtos") && (produto.link && produto.descricao?.includes("one"))) {
-        adicionarTexto(`*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
-        adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2`);
-      } else if (["amazon", "mercado livre"].some((nome) => loja.includes(nome))) {
-        adicionarTexto(`*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}`);
-      } else {
-        adicionarTexto(`*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1`);
+      if (loja.includes("shopee")) {
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
+      }else{
+        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
       }
     };
 
     const montarExtras = () => {
       if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {
-        adicionarTexto(`\u{1F4E6} ${produto.freteVariacoes}`);
+        adicionarTexto(`\u{1F4E6} ${produto.freteVariacoes}\n`);
       }
       if (produto.mensagemAdicional) {
         adicionarTexto(`_${produto.mensagemAdicional}_`);

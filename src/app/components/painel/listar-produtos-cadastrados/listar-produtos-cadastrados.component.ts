@@ -209,7 +209,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
-        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.linkOfm}\n`);
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
     };
 
     const montarExtras = () => {

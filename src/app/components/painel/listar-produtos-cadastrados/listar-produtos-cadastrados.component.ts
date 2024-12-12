@@ -155,9 +155,6 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   enviarTelegram(mensagem: string, url: string) {
 
-    // mensagem = mensagem.replace(/_/g, '__');
-    // mensagem = mensagem.replace(/\*/g, '**');
-
     const mensagemEnviar = {
       mensagem: mensagem,
       url: url
@@ -209,7 +206,12 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
-        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
+        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+        if(produto.loja.nome_loja.toLowerCase().includes("shopee")){
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
+        }else{
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+        }
     };
 
     const montarExtras = () => {

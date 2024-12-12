@@ -206,13 +206,16 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
     const montarLink = () => {
       if (!isPlatformBrowser(this.platformId)) return;
-        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
-        if(produto.loja.nome_loja.toLowerCase().includes("shopee")){
+
+      const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+
+      if (produto?.loja?.nome_loja?.toLowerCase()?.includes("shopee")) {
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
-        }else{
+      } else {
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
-        }
-    };
+      }
+  };
+
 
     const montarExtras = () => {
       if (produto.freteVariacoes && produto.freteVariacoes.includes("CUPOM")) {

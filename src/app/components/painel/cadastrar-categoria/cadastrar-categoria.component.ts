@@ -26,7 +26,6 @@ export class CadastrarCategoriaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.id);
     this.categoriaFormGroup = this.formBuilder.group({
       nome_categoria: ['', Validators.required]
     })
@@ -39,7 +38,7 @@ export class CadastrarCategoriaComponent implements OnInit {
     if (this.id === undefined && !this.categoriaFormGroup.invalid) {
       const categoria = new Categoria(this.categoriaFormGroup.get(['nome_categoria'])?.value)
 
-      this.categoriaService.salvarCategoria(categoria.nomeCategoria).subscribe(response => {
+      this.categoriaService.salvarCategoria(categoria).subscribe(response => {
 
         this.categorias.push(response);
         this.categoriaFormGroup.reset()
@@ -63,7 +62,7 @@ export class CadastrarCategoriaComponent implements OnInit {
 
   listarCategoria() {
     this.categoriaService.listarCategoria().subscribe(response => {
-      this.categorias = response;
+      this.categorias = response.content;
     })
   }
 

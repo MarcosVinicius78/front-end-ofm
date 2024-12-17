@@ -35,42 +35,104 @@ export class BlankComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       const r = params['r'];
+      const rota = params['rota'];
 
-      if (r === '1' && id) {
-        this.produtoService.pegarProduto(id, r).subscribe(response => {
-          // Definir as meta tags aqui
-          this.meta.updateTag({ name: 'og:title', content: response.titulo });
-          // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-          this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+      if (rota !== 'grupos') {
+        this.redirecionarProdutos(r, id);
+      } else if (rota === 'grupos') {
+        this.redirecionarGrupos(r)
+      }
 
-          this.produto = response;
+      // }else{
+        //   // Redirecionar se os parâmetros não forem válidos
+        // this.router.navigate(['/']);
+      // }
+    });
+  }
 
-          window.location.href = response.link_ofm;
-        });
-      } else if (r === '2' && id) {
-        this.produtoService.pegarProduto(id, r).subscribe(response => {
-          // Definir as meta tags aqui
-          this.meta.updateTag({ name: 'og:title', content: response.titulo });
-          // this.meta.updateTag({ name: 'og:description', content: response.descricao });
-          this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+  redirecionarGrupos(r: string) {
+    this.linksService.listarLinksEBanners().then(response => {
+      this.links = response;
+      if (r === '1') {
+        window.location.href = this.links.links.outros
+      }else if(r === '2'){
+        window.location.href = this.links.links.whatsapp
+      }else if(r === '3'){
+        window.location.href = this.links.links.outros
+      }
+    })
+  }
 
-          this.produto = response;
+  redirecionarProdutos(r: any, id: string) {
+    this.produtoService.pegarProduto(id, r).subscribe(response => {
+      // Definir as meta tags aqui
+      this.meta.updateTag({ name: 'og:title', content: response.titulo });
+      // this.meta.updateTag({ name: 'og:description', content: response.descricao });
+      this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
 
-          // Redirecionar para a URL final após definir as meta tags
-          if (isPlatformBrowser(this.platformId)) {
-            window.location.href = response.descricao;
-          }
-        });
-      } else if(r === '3' && id){
 
-        this.linksService.listarLinksEBanners().then(response => {
-          window.location.href = response.links.outros;
-        })
-
-      }else{
-        // Redirecionar se os parâmetros não forem válidos
-        this.router.navigate(['/']);
+      if (r === '1') {
+        window.location.href = response.link_ofm;
+      }else if(r === '2'){
+        window.location.href = response.descricao;
       }
     });
   }
+
+  // produto = new ProdutoLoja();
+
+  // links!: LinksBanner
+
+  // constructor(
+  //   private route: ActivatedRoute,
+  //   private router: Router,
+  //   private meta: Meta,
+  //   private produtoService: ProdutoService,
+  //   @Inject(PLATFORM_ID) private platformId: Object,
+  //   private linksService: LinkBannerService
+  // ) { }
+
+  // ngOnInit(): void {
+
+  //   this.route.queryParams.subscribe(params => {
+  //     const id = params['id'];
+  //     const r = params['r'];
+
+  //     if (r === '1' && id) {
+  //       this.produtoService.pegarProduto(id, r).subscribe(response => {
+  //         // Definir as meta tags aqui
+  //         this.meta.updateTag({ name: 'og:title', content: response.titulo });
+  //         // this.meta.updateTag({ name: 'og:description', content: response.descricao });
+  //         this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+
+  //         this.produto = response;
+
+  //         window.location.href = response.link_ofm;
+  //       });
+  //     } else if (r === '2' && id) {
+  //       this.produtoService.pegarProduto(id, r).subscribe(response => {
+  //         // Definir as meta tags aqui
+  //         this.meta.updateTag({ name: 'og:title', content: response.titulo });
+  //         // this.meta.updateTag({ name: 'og:description', content: response.descricao });
+  //         this.meta.updateTag({ name: 'og:image', content: `${environment.apiUrl}/produto/download-imagem-real/${response.imagemSocial}` });
+
+  //         this.produto = response;
+
+  //         // Redirecionar para a URL final após definir as meta tags
+  //         if (isPlatformBrowser(this.platformId)) {
+  //           window.location.href = response.descricao;
+  //         }
+  //       });
+  //     } else if(r === '3' && id){
+
+  //       this.linksService.listarLinksEBanners().then(response => {
+  //         window.location.href = response.links.outros;
+  //       })
+
+  //     }else{
+  //       // Redirecionar se os parâmetros não forem válidos
+  //       this.router.navigate(['/']);
+  //     }
+  //   });
+  // }
 }

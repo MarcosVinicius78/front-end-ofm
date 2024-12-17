@@ -14,12 +14,12 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  salvarCategoria(categoria: string){
+  salvarCategoria(categoria: Categoria){
     return this.http.post<Categoria>(`${this.URL_BASE}/categoria`, categoria);
   }
 
   listarCategoria(){
-    return this.http.get<any>(`${this.URL_BASE}/categoria`);
+    return this.http.get<CategoriaPage>(`${this.URL_BASE}/categoria`);
   }
 
   apagarCategoria(id: number) {
@@ -33,4 +33,10 @@ export class CategoriaService {
   atualizarCategoria(categoria: any) {
     return this.http.put(`${this.URL_BASE}/categoria`, categoria);
   }
+}
+
+interface CategoriaPage {
+  content: Categoria[],
+  totalElements: number,
+  totalPages: number
 }

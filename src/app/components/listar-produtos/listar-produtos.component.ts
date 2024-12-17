@@ -29,7 +29,6 @@ export class ListarProdutosComponent implements OnInit {
 
   links = new LinksBanner();
 
-
   termoPesquisaAnterior: string = '';
   termoPesquisa: string = '';
 
@@ -41,23 +40,7 @@ export class ListarProdutosComponent implements OnInit {
   modal: boolean = false;
   produtoModalDto = new ProdutoModalDto();
 
-  responsiveOptions: any[] = [
-    {
-      breakpoint: '1024px',
-      numVisible: 5
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 3
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1
-    }
-  ];
-
   loading = false;
-
 
   constructor(
     private produtoService: ProdutoService,
@@ -68,11 +51,6 @@ export class ListarProdutosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    // if (this.links.banners.length != 0) {
-    //   this.startSlideShow();
-    //   this.showSlides(this.slideIndex)
-    // }
 
     this.pegarLinks()
 

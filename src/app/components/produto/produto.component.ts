@@ -17,6 +17,7 @@ import { LinkBannerService } from 'src/app/service/painel/link-banner.service';
 import { environment } from 'src/environments/environment';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
 
 @Component({
   selector: 'app-produto',
@@ -45,7 +46,6 @@ export class ProdutoComponent implements OnInit {
 
   msg!: Message[];
 
-  modalInfo: boolean = false;
   produtoModalDto = new ProdutoModalDto();
 
   constructor(
@@ -57,7 +57,8 @@ export class ProdutoComponent implements OnInit {
     private clipboard: Clipboard,
     private linkBannerService: LinkBannerService,
     // private snackBar: MatSnackBar
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +77,7 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.pegarProduto(this.id,0).subscribe(response => {
 
       this.produto = response;
-      this.setProductMetaTags(this.produto.titulo, this.produto.descricao, "");
+      this.setProductMetaTags(this.produto.titulo, "", "");
       // if (isPlatformBrowser(this.platformId)) {
       // }
 
@@ -96,7 +97,6 @@ export class ProdutoComponent implements OnInit {
 
   fecharModal() {
     this.modal = false;
-    this.modalInfo = false;
   }
 
   abrirModal() {
@@ -229,7 +229,6 @@ export class ProdutoComponent implements OnInit {
       this.produtoModalDto.link = link;
       this.produtoModalDto.frete = frete
       event.preventDefault();
-      this.modalInfo = true;
     }
   }
 }

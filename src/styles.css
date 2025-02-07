@@ -15,6 +15,10 @@ body{
   background-color: rgb(238, 238, 238);
 }
 
+.cor-sergipe{
+  background-color: #f0a11f;
+}
+
 /* Estilo da barra de rolagem */
 ::-webkit-scrollbar {
   width: 6px; /* Largura da barra de rolagem */

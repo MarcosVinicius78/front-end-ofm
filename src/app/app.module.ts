@@ -46,6 +46,8 @@ import { CardModule } from 'primeng/card';
 import { ConfiguracoesComponent } from './components/painel/configuracoes/configuracoes.component';
 import { BlankComponent } from './components/blank/blank.component';
 import { FormatTexPipe } from "./pipe/format-tex.pipe";
+import { ProdutoCardComponent } from './components/common/produto-card/produto-card.component';
+import { ImageDisplayComponent } from './components/common/image-display/image-display.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -69,7 +71,9 @@ import { FormatTexPipe } from "./pipe/format-tex.pipe";
         ListaDePostsComponent,
         ConfiguracoesComponent,
         BlankComponent,
-        MenuOpcoesComponent
+        MenuOpcoesComponent,
+        ProdutoCardComponent,
+        ImageDisplayComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
     AppRoutingModule,

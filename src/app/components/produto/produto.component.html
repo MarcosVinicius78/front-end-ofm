@@ -26,7 +26,7 @@
             <div *ngIf="produto.promocaoEncerrada" class="promo-encerrada">
               Promoção Encerrada
             </div>
-            <img [src]="apiUrl+'/produto/download/'+produto.imagem" alt="">
+            <img [src]="imagemService.getImagemUrl(produto.imagem, 'produtos')" alt="">
           </div>
           <div>
             <p class="mob">Promoção da loja: {{ produto.lojaResponseDto.nome_loja }}</p>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="ir-loja">
-              <a href="{{ produto.link_ofm }}" (click)="abrirModalInfo($event, produto.cupom, produto.imagem, produto.titulo, produto.link_ofm, produto.freteVariacoes, produto.id)" target="_blank">Ir a Loja</a>
+              <a href="{{ produto.linkSiteOmc }}" target="_blank">Ir a Loja</a>
             </div>
           </div>
         </div>
@@ -72,9 +72,9 @@
             Compartilhar
           </button>
           <div class="loja">
-            <img *ngIf="produto.lojaResponseDto.urlImagem"
-              [src]="apiUrl+'/loja/mostar-imagem/'+produto.lojaResponseDto.urlImagem"
-              alt="{{ produto.lojaResponseDto.nome_loja }}">
+            <img class="w-3rem border-round-3xl lg:hidden" *ngIf="produto.lojaResponseDto.urlImagem"
+                [src]="imagemService.getImagemUrl(produto.lojaResponseDto.urlImagem, 'lojas')"
+                alt="{{ produto.lojaResponseDto.nome_loja }}">
             <div>
               <p>Promoção da loja:</p>
               <p>{{ produto.lojaResponseDto.nome_loja }}</p>
@@ -94,34 +94,7 @@
 
       <div class="produtos-categorias">
         <div *ngFor="let item of produtos" class="grid-item">
-          <div class="card">
-              <div>
-                <img [src]="item?.imagem ? apiUrl + '/produto/download/' + item.imagem : 'default-image.jpg'" alt="">
-              </div>
-              <div class="info-cat">
-                <p class="data">{{ item?.dataCriacao ? calculateElapsedTime(item.dataCriacao) : 'N/A' }}</p>
-                <p class="nome-produto">
-                  <a [href]="item?.id ? '/oferta/' + item.id : '#'">
-                    {{ item?.titulo || 'Sem título' }}
-                  </a>
-                </p>
-                <div class="cupom-categoria">
-                  <div>
-                    <p *ngIf="item?.cupom">{{ item.cupom }}</p>
-                    <i *ngIf="item?.cupom" class="pi pi-copy text-base"></i>
-                  </div>
-                </div>
-                <div class="frete">
-                  <i class="pi pi-truck"></i>
-                  <p>{{ item?.freteVariacoes || 'N/A' }}</p>
-                </div>
-                <p class="preco2">{{ item?.preco || 'Sem preço' }}</p>
-                <div class="ver-promocao">
-                  <a [href]="item?.link || '#'" target="_blank">Pegar Promoção</a>
-                </div>
-              </div>
-
-            </div>
+          <app-produto-card [item]="item"></app-produto-card>
         </div>
       </div>
 
@@ -173,7 +146,7 @@
     </aside>
   </div>
 
-  <aside class="modal-informacao" *ngIf="modalInfo">
+  <!-- <aside class="modal-informacao" *ngIf="modalInfo">
     <div class="conteudo-modal">
       <div class="flex justify-content-end">
         <i class="pi pi-times cursor-pointer" (click)="fecharModal()"></i>
@@ -194,7 +167,7 @@
     <div (click)="fecharModal()" class="cursor-pointer backgroud-modal">
 
     </div>
-  </aside>
+  </aside> -->
 
 
   <p-messages class="absolute top-8 w-3" [(value)]="msg" [enableService]="false" [closable]="false"></p-messages>

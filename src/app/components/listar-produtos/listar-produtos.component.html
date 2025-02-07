@@ -29,51 +29,21 @@
         <!-- <i class="pi pi-search" (click)="pesquisar()" role="button"></i> -->
         <input type="search" [(ngModel)]="termoPesquisa" (keyup.enter)="pesquisar()" placeholder="Procurar Promoções">
       </div>
-      <div class="radar">
+      <div class="radar mb-2">
         <p>
           Radar de Ofertas
         </p>
       </div>
     </div>
 
-    <div class="container">
+    <div class="grid mb-7">
 
-      <div class="lista-de-produtos" *ngFor="let item of produtos">
-        <div class="card">
-          <div *ngIf="item.imagem != undefined" class="img">
-            <a routerLink="/oferta/{{ item.id }}">
-              <img [src]="apiUrl+'/produto/download/'+item.imagem" alt="{{ item.titulo }}">
-            </a>
-          </div>
-
-          <div class="loja" *ngIf="item.loja !== null">
-            <img [src]="apiUrl+'/loja/mostar-imagem/'+item.loja.urlImagem" alt="{{item.loja.nome_loja}}" />
-          </div>
-
-          <div class="info">
-            <p class="data">{{calculateElapsedTime(item.dataCriacao)}}</p>
-            <a routerLink="/oferta/{{ item.id }}">
-              <p class="nome-produto">{{ item.titulo }}</p>
-            </a>
-            <div (click)="copiarParaAreaTransferencia(item.cupom)" class="cupom">
-              <div>
-                <p *ngIf="item.cupom && item.cupom.length < 20">{{ item.cupom }}</p>
-                <i *ngIf="item.cupom && item.cupom.length < 20" class="pi pi-copy"></i>
-              </div>
-            </div>
-            <div class="frete">
-              <i *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48" class="pi pi-truck"></i>
-              <p *ngIf="item.freteVariacoes && item.freteVariacoes.length < 48">{{ item.freteVariacoes }}</p>
-            </div>
-            <a routerLink="/oferta/{{ item.id }}">
-              <p id="preco">{{ item.preco }}</p>
-            </a>
-            <div class="ir-loja">
-              <a href="{{ item.link }}" (click)="abrirModal($event, item.cupom, item.imagem, item.titulo, item.link, item.freteVariacoes, item.id)" target="_blank">Pegar Promoção</a>
-            </div>
-          </div>
+      <ng-container *ngFor="let item of produtos; let i = index">
+        <div class="col-6 md:col-4 p-1 lg:col-3">
+          <app-produto-card [item]="item"></app-produto-card>
         </div>
-      </div>
+  
+      </ng-container>
     </div>
 
   </section>
@@ -157,28 +127,4 @@
       <a *ngIf="links.links != undefined" href="{{ links.links.email }}">FALE CONOSCO</a>
     </div>
   </div> -->
-
-  <aside class="modal-informacao" *ngIf="modal">
-    <div class="conteudo-modal">
-      <div class="flex justify-content-end">
-        <i class="pi pi-times cursor-pointer" (click)="fecharModal()"></i>
-      </div>
-      <div routerLink="/oferta/{{ produtoModalDto.id }}" class="header-modal flex align-items-center justify-content-around">
-        <img [src]="apiUrl+'/produto/download/'+produtoModalDto.imagem" alt="imagem-produto">
-        <p id="titulo-modal">{{ produtoModalDto.titulo }}</p>
-      </div>
-
-      <div class="info-modal">
-        <p>Instruções Adicionais</p>
-        <P>{{ produtoModalDto.cupomInformacoes == null || produtoModalDto.cupomInformacoes == ''? produtoModalDto.frete : produtoModalDto.cupomInformacoes }}</P>
-      </div>
-
-      <a href="{{produtoModalDto.link}}" target="_blank">Pegar Promoção</a>
-    </div>
-
-    <div (click)="fecharModal()" class="cursor-pointer backgroud-modal">
-
-    </div>
-  </aside>
-
 </div>

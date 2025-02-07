@@ -10,6 +10,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { filter } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { ProdutoModalDto } from 'src/app/dto/produtoModalDto';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { IProdutoResponseDto } from 'src/app/dto/IProdutoResponseDto';
 
 @Component({
   selector: 'app-listar-produtos',
@@ -21,7 +23,7 @@ export class ListarProdutosComponent implements OnInit {
 
   apiUrl: string = environment.apiUrl
 
-  produtos: Produtos[] = [];
+  produtos: IProdutoResponseDto[] = [];
 
   text: string = 'tesrte'
 
@@ -37,9 +39,6 @@ export class ListarProdutosComponent implements OnInit {
   size = 12;
   slideIndex = 1;
 
-  modal: boolean = false;
-  produtoModalDto = new ProdutoModalDto();
-
   loading = false;
 
   constructor(
@@ -47,7 +46,8 @@ export class ListarProdutosComponent implements OnInit {
     private linkBannerService: LinkBannerService,
     private route: ActivatedRoute,
     private clipboard: Clipboard,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public imagemService: ImagemServiceService
   ) { }
 
   ngOnInit() {
@@ -65,8 +65,8 @@ export class ListarProdutosComponent implements OnInit {
   }
 
   listarPorCategoria() {
-    this.produtoService.ProdutoPorCategoria(environment.site,this.idCategoria, this.page, this.size).subscribe(response => {
-      this.produtos = this.produtos.concat(response);
+    this.produtoService.ProdutoPorCategoria(environment.site, this.idCategoria, this.page, this.size).subscribe(response => {
+      this.produtos = this.produtos.concat(response.content);
       this.page++
       this.loading = false
     });
@@ -204,23 +204,5 @@ export class ListarProdutosComponent implements OnInit {
 
   copiarParaAreaTransferencia(cupom: string) {
     this.clipboard.copy(cupom);
-  }
-
-  abrirModal(event: Event, cupom: string, img: string, titulo: string, link: string, frete: string, id: number){
-
-    if (cupom && cupom.length > 18 || frete && frete.length > 48) {
-      this.produtoModalDto.id = id;
-      this.produtoModalDto.titulo = titulo;
-      this.produtoModalDto.imagem = img;
-      this.produtoModalDto.cupomInformacoes = cupom;
-      this.produtoModalDto.link = link;
-      this.produtoModalDto.frete = frete
-      event.preventDefault();
-      this.modal = true;
-    }
-  }
-
-  fecharModal(){
-    this.modal = false
   }
 }

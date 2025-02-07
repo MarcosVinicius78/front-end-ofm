@@ -92,7 +92,7 @@ export class ProdutoComponent implements OnInit {
     this.meta.updateTag({ name: 'description', content: "Promoções do Dia" });
     this.meta.updateTag({ property: 'og:title', content: productName });
     // this.meta.updateTag({ property: 'og:description', content: productDescription });
-    this.meta.updateTag({ property: 'og:image', content: `${this.apiUrl}/produto/download-imagem-real/${this.produto.imagemSocial}` });
+    this.meta.updateTag({ property: 'og:image', content: this.imagemService.getImagemUrl(this.produto.imagemSocial, "produtos-real") });
   }
 
   fecharModal() {

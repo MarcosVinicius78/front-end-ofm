@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, ViewChild, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import * as dateFns from 'date-fns';
 import { LinkBannerService } from 'src/app/service/painel/link-banner.service';

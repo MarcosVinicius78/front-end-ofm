@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProdutoLoja } from 'src/app/dto/ProdutoLoja';
 import { ScraperProduto } from 'src/app/dto/ScraperProduto';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ProdutoService {
 
   salvarProduto(produto: any) {
 
-    return this.http.post<Produtos>(`${this.apiUrl}/produto/salvar`, produto);
+    return this.http.post<Produto>(`${this.apiUrl}/produto/salvar`, produto);
   }
 
   salvarImagem(formData: FormData) {
@@ -58,7 +58,7 @@ export class ProdutoService {
     return this.http.get<any>(`${this.apiUrl}/produto/por-categoria`, { params })
   }
 
-  apagarVariosProdutos(produtosSelecionados: Produtos) {
+  apagarVariosProdutos(produtosSelecionados: Produto) {
     return this.http.post<number>(`${this.apiUrl}/produto/apagar-varios`, produtosSelecionados)
   }
 
@@ -87,7 +87,7 @@ export class ProdutoService {
 }
 
 interface PordutosPage {
-  content: Produtos[],
+  content: Produto[],
   totalElements: number,
   totalPages: number
 }

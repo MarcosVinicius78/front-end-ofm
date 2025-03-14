@@ -143,7 +143,7 @@ export class CadastrarProdutoComponent implements OnInit {
 
       this.produtoSevice.salvarProduto(produto).subscribe(response => {
 
-        this.id = response.id;
+        this.id = response.id!;
 
         if (this.scraperProduto.urlImagem === '' && this.imagemFile !== undefined) {
 

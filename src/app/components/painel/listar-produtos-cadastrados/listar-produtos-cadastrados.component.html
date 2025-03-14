@@ -72,19 +72,18 @@
 <p-toast></p-toast>
 
 
-<p-dialog header="Confirmar Informações" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-  <p-card header="{{ produto.titulo }}" [style]="{ width: '360px' }">
-    <ng-template pTemplate="header">
-      <img alt="Card" [src]="apiUrl+'/produto/download/'+produto.imagem" />
+@if (produto !== undefined){
+  <p-dialog header="Confirmar Informações" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <p-card header="{{ produto.titulo! }}" [style]="{ width: '360px' }">
+      <ng-template pTemplate="header">
+      <img alt="Card" [src]="this.imagemService.getImagemUrl(produto.imagemSocial!, 'produtos-real')" />
     </ng-template>
-    <p [innerHTML]="montarEstruturaCompartilhamento(produto, 2) | formatTex"></p>
-
-    <!-- <p>{{ produto.cupom }}</p>
-    <p>{{ produto.freteVariacoes }}</p>
-    <p>{{ produto.mensagemAdicional }}</p> -->
+    <p [innerHTML]="estruturaCompartilhamento | formatTex"></p>
   </p-card>
-  <div class="flex justify-content-center mt-3">
-    <p-button label="Enviar"
-      (onClick)="enviarTelegram(montarEstruturaCompartilhamento(produto, 2), produto.imagemSocial)" />
-  </div>
-</p-dialog>
+  <div class="flex justify-content-center justify-content-around mt-3">
+    <p-button class="bg-primary" label="WhatsApp" (onClick)="copiarParaAreaTransferencia(produto, 1)" />
+    <p-button label="Telegram"
+      (onClick)="enviarTelegram(estruturaCompartilhamento, produto.imagemSocial!)" />
+    </div>
+  </p-dialog>
+}

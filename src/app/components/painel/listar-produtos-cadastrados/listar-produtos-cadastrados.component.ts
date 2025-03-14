@@ -1,12 +1,14 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, Message, MessageService } from 'primeng/api';
-import { Produtos } from 'src/app/models/produtos';
+import { Produto } from 'src/app/models/produtos';
 import { ProdutoService } from 'src/app/service/painel/produto.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { MensagemService } from 'src/app/service/painel/mensagem.service';
+import { ImagemServiceService } from 'src/app/service/painel/imagem-service.service';
+import { ConfigSiteService } from 'src/app/service/painel/config-site.service';
 
 @Component({
   selector: 'app-listar-produtos-cadastrados',
@@ -26,17 +28,22 @@ export class ListarProdutosCadastradosComponent implements OnInit {
 
   number!: number
 
-  produtos: Produtos[] = [];
-  produto = new Produtos();
+  produtos: Produto[] = [];
+  produto!: Produto;
 
   apiUrl = environment.apiUrl;
 
   // produto!: Produtos;
-  selectedProducts!: Produtos;
+  selectedProducts!: Produto;
 
   visible: boolean = false;
 
   openMenuId: number | null = null;
+
+  linkCurto!: boolean
+  linkSemDominio!: boolean
+
+  estruturaCompartilhamento: string = "";
 
   constructor(
     private produtoService: ProdutoService,
@@ -44,11 +51,17 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     private messageService: MessageService,
     private clipboard: Clipboard,
     private mensagemService: MensagemService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public imagemService: ImagemServiceService,
+    private configSiteService: ConfigSiteService
   ) { }
 
   ngOnInit(): void {
     this.listarProdutos();
+
+    this.statusLinkSemDominio()
+
+    this.statusLinkCurto();
 
     this.items = [
       {
@@ -64,6 +77,18 @@ export class ListarProdutosCadastradosComponent implements OnInit {
         icon: 'pi pi-fw pi-user',
       },
     ];
+  }
+
+  statusLinkCurto() {
+    this.configSiteService.statusLinkCurto().subscribe(res => {
+      this.linkCurto = res;
+    })
+  }
+
+  statusLinkSemDominio(){
+    this.configSiteService.statusLinkSemDominioOmc().subscribe(res => {
+      this.linkSemDominio = res;
+    });
   }
 
   listarProdutos() {
@@ -139,17 +164,17 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     })
   }
 
-  copiarParaAreaTransferencia(produtos: Produtos, valor: number) {
-
-    let post = this.montarEstruturaCompartilhamento(produtos, valor)
+  async copiarParaAreaTransferencia(produtos: Produto, valor: number) {
+    let post = await this.montarEstruturaCompartilhamento(produtos, valor); // ✅ Aguarda a montagem da estrutura
 
     if (valor === 1) {
       this.clipboard.copy(post);
-    }else{
+    } else {
       post = post.replace(/_/g, '__');
       post = post.replace(/\*/g, '**');
       this.clipboard.copy(post);
     }
+
     this.messageService.add({ severity: 'success', detail: 'POST COPIADO' });
   }
 
@@ -169,7 +194,30 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     });
   }
 
-  montarEstruturaCompartilhamento(produto: Produtos, site: number) {
+  baixarImagem(local: string, imagem: string) {
+
+    this.imagemService.baixarImagem(imagem, local).subscribe(response => {
+      if (isPlatformBrowser(this.platformId)) {
+        // Cria um URL para a Blob response
+        const url = window.URL.createObjectURL(response.body!);
+
+        // Cria um link temporário e simula um clique para iniciar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "teste";
+        document.body.appendChild(link);
+        link.click();
+
+        // Limpa o URL criado
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }
+    }, err => {
+      this.messageService.add({ severity: 'error', detail: 'Erro ao Gerar Storie' });
+    })
+  }
+
+  async montarEstruturaCompartilhamento(produto: Produto, site: number) {
     let estruturaCompartilhamento = "";
 
     const adicionarTexto = (texto: string) => (estruturaCompartilhamento += texto + "\n");
@@ -204,17 +252,54 @@ export class ListarProdutosCadastradosComponent implements OnInit {
       }
     };
 
-    const montarLink = () => {
+    const montarLink = async () => {
       if (!isPlatformBrowser(this.platformId)) return;
 
       const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
 
-      if (produto?.loja?.nome_loja?.toLowerCase()?.includes("shopee")) {
+
+      if (this.linkSemDominio) {
+        if(produto.nomeLoja?.toLowerCase().includes("mercado") || produto.nomeLoja?.toLowerCase().includes("amazon") || produto.nomeLoja?.toLowerCase().includes("shop")) {
+          if(site !== 2) {
+            this.baixarImagem(produto.imagemSocial!, "produtos-real")
+          }
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${produto.link}\n`);
-      } else {
+        } else if(produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
+          await mostrarLinkCurtoApp(baseUrl);
+        }else{
           adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+        }
+      } else if(this.linkCurto) {
+        if (produto.nomeLoja?.toLowerCase().includes("magazine luiza")) {
+          await mostrarLinkCurtoApp(baseUrl);
+        }else {
+          adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+        }
+      } else {
+        const baseUrl = window.location.href.replace(/painel(\/listar-produtos)?/, '');
+        adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}\n`);
       }
-  };
+
+
+    };
+
+    const mostrarLinkCurtoApp = async (baseUrl: string) => {
+      return new Promise<void>((resolve) => {
+        this.produtoService.pegarProduto(produto.id, 0).subscribe({
+          next: (res) => {
+            if (res.linkAppSe?.includes("onelink")) {
+              adicionarTexto(`\n*\u{1F6D2} Confira no Site Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+              adicionarTexto(`*\u{1F6D2} Confira no App Magalu:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=2\n`);
+            } else {
+              adicionarTexto(`\n*\u{1F6D2} Confira Aqui:\u{1F447}*\n${baseUrl}oferta/${produto.id}?r=1\n`);
+            }
+            resolve(); // Libera a execução
+          },
+          error: () => resolve() // Mesmo com erro, libera a execução
+        });
+      });
+    };
+
 
 
     const montarExtras = () => {
@@ -229,7 +314,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     montarTitulo();
     montarPreco();
     montarCupom();
-    montarLink();
+    await montarLink();
     montarExtras();
 
     return estruturaCompartilhamento.trim();
@@ -243,7 +328,7 @@ export class ListarProdutosCadastradosComponent implements OnInit {
     }
   }
 
-  showDialog(produto: Produtos) {
+  showDialog(produto: Produto) {
     this.produto = produto;
     this.visible = !this.visible;
   }
